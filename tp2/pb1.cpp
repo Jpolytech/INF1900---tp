@@ -45,10 +45,16 @@ bool isButtonPushed(){
       return false;
 }
 
+void VERT(){
+    PORTA |= (1 << PORTA0);
+}
+
+void ETEINT(){
+  PORTA &= ~(1 << PORTA1);
+}
+
 int main() {
   uint8_t ETEINT = 0x00;
-  uint8_t VERT = 0X01;
-  //uint8_t ROUGE = 0X02;
   DDRA = DDR_OUT;// PORT A est en mode sortie
   DDRD = DDR_IN; // PORT D est en mode entrée
   State state {State::E0};
@@ -64,21 +70,19 @@ int main() {
         break;
 
       case(State::E1):
-        PORTA = ETEINT;
         if(isButtonPushed()){
           state = State::E2;
         }
         break;
 
       case(State::E2):
-        PORTA = ETEINT;
         if(isButtonPushed()){
           state = State::E3;
         }
         break;
 
       case(State::E3):
-        PORTA = VERT;
+        VERT();
         _delay_ms(2000);
         state = State::E0;
         break;

@@ -48,10 +48,24 @@ bool isButtonPushed(){
       return false;
 }
 
+void ROUGE(){
+    PORTA &= ~(1 << PORTA0);
+    PORTA |= (1 << PORTA1);
+}
+
+void VERT(){
+    PORTA |= (1 << PORTA0);
+    PORTA &= ~(1 << PORTA1);
+}
+
+void ETEINT(){
+    PORTA &= ~(1 << PORTA0);
+    PORTA &= ~(1 << PORTA1);
+}
+
+
+
 int main(){
-    uint8_t ETEINT = 0x00;
-    uint8_t VERT = 0X01;
-    uint8_t ROUGE = 0X02;
     DDRA = DDR_OUT;
     DDRD = DDR_IN;
 
@@ -59,7 +73,7 @@ int main(){
     while(true){
         switch(color){
             case(Color::R_INIT):
-                PORTA = ROUGE;
+                ROUGE();
                 if(isButtonPushed()){
                     color = Color::A;
                 }
@@ -68,9 +82,9 @@ int main(){
 
             case(Color::A):
                 while(isButtonPushed()){
-                    PORTA = VERT;
+                    VERT();
                     _delay_ms(10);
-                    PORTA = ROUGE;
+                    ROUGE();
                     _delay_ms(10);
                 }
 
@@ -79,7 +93,7 @@ int main(){
             break;
 
             case(Color::V1):
-                PORTA = VERT;
+                VERT();
                 if(isButtonPushed()){
                     color = Color::R;
                 }
@@ -87,7 +101,7 @@ int main(){
             break;
 
             case(Color::R):
-                PORTA = ROUGE;
+                ROUGE();
                 if(!isButtonPushed()){
                     color = Color::CLOSED;
                 }
@@ -95,7 +109,7 @@ int main(){
             break;
 
             case(Color::CLOSED):
-                PORTA = ETEINT;
+                ETEINT();
                 if(isButtonPushed()){
                     color = Color::V2;
                 }
@@ -103,7 +117,7 @@ int main(){
             break;
 
             case(Color::V2):
-                PORTA = VERT;
+                VERT();
                 if(!isButtonPushed()){
                     color = Color::R_INIT;
                 }
