@@ -48,17 +48,17 @@ bool isButtonPushed(){
       return false;
 }
 
-void ROUGE(){
+void rouge(){
     PORTA &= ~(1 << PORTA0);
     PORTA |= (1 << PORTA1);
 }
 
-void VERT(){
+void vert(){
     PORTA |= (1 << PORTA0);
     PORTA &= ~(1 << PORTA1);
 }
 
-void ETEINT(){
+void eteint(){
     PORTA &= ~(1 << PORTA0);
     PORTA &= ~(1 << PORTA1);
 }
@@ -73,7 +73,7 @@ int main(){
     while(true){
         switch(color){
             case(Color::R_INIT):
-                ROUGE();
+                rouge();
                 if(isButtonPushed()){
                     color = Color::A;
                 }
@@ -82,9 +82,9 @@ int main(){
 
             case(Color::A):
                 while(isButtonPushed()){
-                    VERT();
+                    vert();
                     _delay_ms(10);
-                    ROUGE();
+                    rouge();
                     _delay_ms(10);
                 }
 
@@ -93,7 +93,7 @@ int main(){
             break;
 
             case(Color::V1):
-                VERT();
+                vert();
                 if(isButtonPushed()){
                     color = Color::R;
                 }
@@ -101,7 +101,7 @@ int main(){
             break;
 
             case(Color::R):
-                ROUGE();
+                rouge();
                 if(!isButtonPushed()){
                     color = Color::CLOSED;
                 }
@@ -109,7 +109,7 @@ int main(){
             break;
 
             case(Color::CLOSED):
-                ETEINT();
+                eteint();
                 if(isButtonPushed()){
                     color = Color::V2;
                 }
@@ -117,7 +117,7 @@ int main(){
             break;
 
             case(Color::V2):
-                VERT();
+                vert();
                 if(!isButtonPushed()){
                     color = Color::R_INIT;
                 }
