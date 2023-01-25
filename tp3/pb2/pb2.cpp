@@ -28,13 +28,12 @@ void busyWaitDelay(uint16_t delay) {
     }
 }
 
-//t en s
+//t = temps*frequence (en s)
 //pourcentage entre 0 et 1
-//frequence en hz
-void pwm(int t, double pourcentage, double frequence) {
-    double periode = (1/frequence) *1000000; //periode en us
+//periode en us
+void pwm(int t, double pourcentage, double periode) {
+    //double periode = (1/frequence) *1000000; //periode en us
     double a = periode * pourcentage;
-    t = t*frequence;
     for(int j=0; j < t; j++){
         avancer();
         busyWaitDelay(a);
@@ -47,18 +46,18 @@ int main() {
     DDRB = DDR_OUT;
 
     //60hz
-    pwm(2, 0, 60);
-    pwm(2, 0.25, 60);
-    pwm(2, 0.50, 60);
-    pwm(2, 0.75, 60);
-    pwm(2, 1, 60);
+    pwm(120, 0, 16666);
+    pwm(120, 0.25, 16666);
+    pwm(120, 0.50, 16666);
+    pwm(120, 0.75, 16666);
+    pwm(120, 1, 16666);
 
     //400hz
-    pwm(2, 0, 400);
-    pwm(2, 0.25, 400);
-    pwm(2, 0.50, 400);
-    pwm(2, 0.75, 400);
-    pwm(2, 1, 400);
-    
+    pwm(800, 0, 2500);
+    pwm(800, 0.25, 2500);
+    pwm(800, 0.50, 2500);
+    pwm(800, 0.75, 2500);
+    pwm(800, 1, 2500);
+
     eteint();
 }
