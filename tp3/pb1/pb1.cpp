@@ -22,7 +22,7 @@ void eteint(){
 }
 
 void busyWaitDelay(uint16_t delay) {
-  for(uint8_t i = 0; i < delay; ++i){
+  for(uint16_t i = 0; i < delay; ++i){
     _delay_us(1);
     //_delay_ms(1); //Au choix
     }
@@ -31,15 +31,15 @@ void busyWaitDelay(uint16_t delay) {
 int main() {
     DDRA = DDR_OUT;
     double n = 1000;
-    for(uint8_t i = 0; i < 3000; i++){
-        n -= 1/3;
-
-        rouge();
+    for(int i = 0; i < 3000; i++){
+        n -= 0.3333333;
 
         busyWaitDelay(n);
+        vert();
 
-        eteint();
-
-        busyWaitDelay(1000 - n);
+        busyWaitDelay(1000-n);
+        rouge();
     }
+    while(true)
+      vert();
 }
