@@ -63,8 +63,6 @@ void eteint(){
     PORTA &= ~(1 << PORTA1);
 }
 
-
-
 int main(){
     DDRA = DDR_OUT;
     DDRD = DDR_IN;
