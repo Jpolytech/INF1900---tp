@@ -27,17 +27,15 @@ int main() {
     DDRA = DDR_OUT;
     eteint();
     const uint8_t chr = 'o';
-    uint8_t size = uint8_t(3);
+    uint8_t size;
     Memoire24CXXX memoire;
-    memoire.ecriture(1, chr);
-    uint8_t motSortie = memoire.lecture(1, &size);
-    if(motSortie == 'o') {
-        while(true){
+    memoire.ecriture(0, chr);
+    _delay_ms(20);
+    memoire.lecture(0, &size);
+    if(chr == size) {
             vert();
-        }
-    } /*else {
-        while(true){
-            rouge();
-        }
-    }*/
+    }
+    else {
+        rouge();
+    }
 }
