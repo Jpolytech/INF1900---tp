@@ -26,14 +26,16 @@ void eteint(){
 int main() {
     DDRA = DDR_OUT;
     eteint();
-    const uint8_t chr = 'o';
-    uint8_t size;
+    uint8_t donnee[] = "Polytechnique";
+    uint8_t size = sizeof(donnee)/sizeof(uint8_t);
+    uint8_t motRetour[size] = "";
     Memoire24CXXX memoire;
-    memoire.ecriture(0, chr);
+    memoire.ecriture(0, donnee, size);
     _delay_ms(20);
-    memoire.lecture(0, &size);
-    if(chr == size) {
-            vert();
+    memoire.lecture(0, motRetour, size);
+
+    if(donnee[0] == motRetour[0]) {
+        vert();
     }
     else {
         rouge();
