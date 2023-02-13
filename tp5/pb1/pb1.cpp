@@ -34,10 +34,22 @@ int main() {
     _delay_ms(20);
     memoire.lecture(0, motRetour, size);
 
-    if(donnee[0] == motRetour[0]) {
-        vert();
+    bool couleur;
+    for(int i = 0; i < size; i++)
+    {
+        if(donnee[i] == motRetour[i]){
+            couleur = true;
+        } else
+        {
+            couleur = false;
+            break;
+        }
     }
-    else {
+    if(couleur == true)
+    {
+        vert();
+    } else
+    {
         rouge();
     }
 }
