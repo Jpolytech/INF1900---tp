@@ -342,9 +342,9 @@ END GROUP
  *(.stab)
  .stab          0x0000000000000000      0x348 pb3.o
 
-.stabstr        0x0000000000000000      0x609
+.stabstr        0x0000000000000000      0x613
  *(.stabstr)
- .stabstr       0x0000000000000000      0x609 pb3.o
+ .stabstr       0x0000000000000000      0x613 pb3.o
 
 .stab.excl
  *(.stab.excl)
