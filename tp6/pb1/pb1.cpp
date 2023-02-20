@@ -1,7 +1,7 @@
-/*Quand le bouton est enfoncé, un compteur qui incrémente 10 fois par seconde est activé. Quand le bouton est relâché ou lorsque le compteur atteint 120, 
-la lumière clignote vert pendant 1/2 seconde. Ensuite, la carte mère ne fait rien. Puis, deux secondes plus tard, la lumière rouge s'allume. 
-Elle devra clignoter (compteur / 2) fois au rythme de 2 fois par seconde. Ensuite, la lumière tourne au vert pendant une seconde. Finalement, 
-elle s'éteint et le robot revient à son état original.*/
+//TP6-probleme 1
+//code écrit par Thibaut Delahaie (2157153) et Jean-Philippe Salis Routhier (2201275)
+//Pour le cours de INF1900-Projet integrateur 1: Systemes embarqués
+//à la session d'hiver 2023
 
 #define F_CPU 8000000UL
 #include <avr/io.h>
@@ -10,7 +10,6 @@ elle s'éteint et le robot revient à son état original.*/
 
 #define DDR_IN 0x00
 #define DDR_OUT 0xff
-#define DEBOUNCE_TIME 20
 
 volatile uint8_t buttonIsPushed = false;
 volatile uint8_t timerIsRunning = false;
@@ -89,16 +88,17 @@ int main() {
     while(true) {
         while(buttonIsPushed && i<120) {
             if(!timerIsRunning) {
-                partirMinuterie(1000);
+                partirMinuterie(781); //1 seconde de minuterie
                 i+=1;
             }
         }
         if(i>0){
-            partirMinuterie(5000);
+            partirMinuterie(391); // 1/2 seconde de minuterie
             while(timerIsRunning){
                 vertClignote();
             }
-            partirMinuterie(20000); //2secondes de minuterie
+            eteint();
+            partirMinuterie(1562); //2secondes de minuterie
             while(timerIsRunning) {
                 _delay_ms(20);
             }
