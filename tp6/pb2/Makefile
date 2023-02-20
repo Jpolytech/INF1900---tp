@@ -8,8 +8,6 @@
 #####  Psychogenic Inc (www.psychogenic.com) #####
 ##################################################
 
-
-
 MCU=atmega324pa
 
 PROJECTNAME=lab6
