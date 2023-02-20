@@ -1,7 +1,21 @@
 //TP6-probleme 1
 //code écrit par Thibaut Delahaie (2157153) et Jean-Philippe Salis Routhier (2201275)
+//Groupe #01 du groupe de lab #1
 //Pour le cours de INF1900-Projet integrateur 1: Systemes embarqués
 //à la session d'hiver 2023
+
+//Description du programme: 
+//Quand le bouton est enfoncé, un compteur qui incrémente 10 fois par seconde est activé. 
+//Quand le bouton est relâché ou lorsque le compteur atteint 120, la lumière clignote vert pendant 1/2 seconde. 
+//Ensuite, la carte mère ne fait rien. Puis, deux secondes plus tard, la lumière rouge s'allume. 
+//Elle devra clignoter (compteur / 2) fois au rythme de 2 fois par seconde. 
+//Ensuite, la lumière tourne au vert pendant une seconde. 
+//Finalement, elle s'éteint et le robot revient à son état original.
+
+//Identifications matérielles:
+//Une led branchée au Port B sur B0-B1
+//Un bouton poussoir externe relié au Port D sur PD2
+//Le cavalier IntEN est retiré pour pouvoir utiliser le bouton poussoir externe
 
 #define F_CPU 8000000UL
 #include <avr/io.h>
@@ -15,18 +29,18 @@ volatile uint8_t buttonIsPushed = false;
 volatile uint8_t timerIsRunning = false;
 
 void rouge(){
-    PORTA &= ~(1 << PORTA0);
-    PORTA |= (1 << PORTA1);
+    PORTB &= ~(1 << PORTB0);
+    PORTB |= (1 << PORTB1);
 }
 
 void vert(){
-    PORTA |= (1 << PORTA0);
-    PORTA &= ~(1 << PORTA1);
+    PORTB |= (1 << PORTB0);
+    PORTB &= ~(1 << PORTB1);
 }
 
 void eteint(){
-    PORTA &= ~(1 << PORTA0);
-    PORTA &= ~(1 << PORTA1);
+    PORTB &= ~(1 << PORTB0);
+    PORTB &= ~(1 << PORTB1);
 }
 
 void vertClignote() {
@@ -38,7 +52,7 @@ void vertClignote() {
 
 void initialisation ( void ) {
     cli();
-    DDRA = DDR_OUT;// PORT A est en mode sortie
+    DDRB = DDR_OUT;// PORT B est en mode sortie
     DDRD = DDR_IN; // PORT D est en mode entrée
 
     // ajustement du registre EIMSK
