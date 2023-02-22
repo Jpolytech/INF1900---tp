@@ -54,15 +54,16 @@ int main() {
     initialisation();
 
     can adc = can();
-    uint8_t adcRetour;
+    uint16_t adcRetour;
 
     while(true) {
         adcRetour = adc.lecture(1);
         adcRetour = adcRetour >> 2; //On garde 8 bits
-        if(adcRetour < 25) {
+        uint8_t adcRetour8b = adcRetour;
+        if(adcRetour8b < 200) {
             vert();
         }
-        else if(adcRetour >= 25 && adcRetour < 50){
+        else if(adcRetour8b >= 200 && adcRetour8b < 250){
             ambree();
         }
         else {
